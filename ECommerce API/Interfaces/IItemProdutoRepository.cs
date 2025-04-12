@@ -2,7 +2,7 @@
 
 namespace ECommerce_API.Interfaces
 {
-    public interface ItemProdutoRepository
+    public interface IItemProdutoRepository
     {
         List<ItemPedido> ListarTodos();
 

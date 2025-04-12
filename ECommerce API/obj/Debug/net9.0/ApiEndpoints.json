@@ -1,5 +1,15 @@
 [
   {
+    "ContainingType": "ECommerce_API.Controllers.PagamentoController",
+    "Method": "ListarTodos",
+    "RelativePath": "api/Pagamento",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "ECommerce_API.Controllers.ProdutoController",
     "Method": "ListarProdutos",
     "RelativePath": "api/Produto",
@@ -7,6 +17,22 @@
     "IsController": true,
     "Order": 0,
     "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ECommerce_API.Controllers.ProdutoController",
+    "Method": "CadastrarProduto",
+    "RelativePath": "api/Produto",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "prod",
+        "Type": "ECommerce_API.Models.Produto",
+        "IsRequired": true
+      }
+    ],
     "ReturnTypes": []
   }
 ]
