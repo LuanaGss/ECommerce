@@ -1,10 +1,13 @@
-﻿using ECommerce_API.Interfaces;
+﻿using ECommerce_API.Context;
+using ECommerce_API.Interfaces;
 using ECommerce_API.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace ECommerce_API.Repositories
 {
     public class ItemPedidoRepository : IItemProdutoRepository
     {
+        private readonly EcommerceContext _context;
         public void Atualizar(int id, ItemPedido itemPedido)
         {
             throw new NotImplementedException();
@@ -17,7 +20,9 @@ namespace ECommerce_API.Repositories
 
         public void Cadastrar(ItemPedido itemPedido)
         {
-            throw new NotImplementedException();
+            _context.ItemPedidos.Add(itemPedido);
+
+            _context.SaveChanges();
         }
 
         public void Deletar(int id)
@@ -27,7 +32,7 @@ namespace ECommerce_API.Repositories
 
         public List<ItemPedido> ListarTodos()
         {
-            throw new NotImplementedException();
+            return _context.ItemPedidos.ToList();
         }
     }
 }

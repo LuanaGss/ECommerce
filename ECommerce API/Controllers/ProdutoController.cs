@@ -13,10 +13,11 @@ namespace ECommerce_API.Controllers
     {
         private readonly EcommerceContext _context;
         private IProdutoRepository _produtoRepository;
-        public ProdutoController(EcommerceContext context)
+
+        // Injecao de dependencia.
+        public ProdutoController(IProdutoRepository produtoRepository)
         {
-            _context = context;
-            _produtoRepository = new ProdutoRepository(context);
+            _produtoRepository = produtoRepository;
         }
 
         // GET
@@ -32,10 +33,7 @@ namespace ECommerce_API.Controllers
             // 1 - Coloco o produto no banco de dados.
             _produtoRepository.Cadastrar(prod);
 
-            // 2 - Salvo a alteracao
-            _context.SaveChanges();
-
-            // 3 - Retorno um resultado
+            // 2 - Retorno um resultado
             // 201 - Created
             return Created();
         }
