@@ -19,12 +19,34 @@ namespace ECommerce_API.Repositories
         }
         public void Atualizar(int id, Produto produto)
         {
-            throw new NotImplementedException();
+            Produto produtoEncontrado = _context.Produtos.Find(id);
+
+            if (produtoEncontrado == null)
+            {
+                throw new Exception();
+            }
+
+            produtoEncontrado.NomeProduto = produto.NomeProduto;
+            produtoEncontrado.Descricao = produto.Descricao;
+            produtoEncontrado.Preco = produto.Preco;
+            produtoEncontrado.CategoriaProduto = produto.CategoriaProduto;
+            produtoEncontrado.Imagem = produto.Imagem;
+            produtoEncontrado.EstoqueDisponível = produto.EstoqueDisponível;
+
+            _context.SaveChanges();
+
         }
 
         public Produto BuscarPorId(int id)
         {
-            throw new NotImplementedException();
+            // ToList() - Pegar Varios
+            // FirstOrDefault - Traz o primeiro que encontrar, ou NULL
+
+            // Expressão lambid: é uma função não nomeada.
+            // context.Produtos - Acesse a tabela de Produtos do Contexto.
+            // FirstOrDefault - Pegue o primeiro que encontrar.
+            // Para cada produto P, me retorne aquele que tem o IdProduto igual ao id.
+            return _context.Produtos.FirstOrDefault(p => p.IdProduto == id);
         }
 
         public void Cadastrar(Produto produto)
@@ -36,7 +58,18 @@ namespace ECommerce_API.Repositories
 
         public void Deletar(int id)
         {
-            throw new NotImplementedException();
+            // 1 - Encontrar o que eu quero excluir
+            // Find - Procura pela chave primaria.
+            Produto produtoEncontrado = _context.Produtos.Find(id);
+
+            if(produtoEncontrado == null)
+            {
+                throw new Exception();
+            }
+            //Caso encontre o produto, remova ele.
+            _context.Produtos.Remove(produtoEncontrado);
+            // Salvo as alteracoes
+            _context.SaveChanges();
         }
 
         public List<Produto> ListarTodos()
