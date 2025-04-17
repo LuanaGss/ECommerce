@@ -17,7 +17,21 @@ namespace ECommerce_API.Repositories
         }
         public void Atualizar(int id, Cliente cliente)
         {
-            throw new NotImplementedException();
+            Cliente clienteEncontrado = _context.Clientes.Find(id);
+
+            if(clienteEncontrado == null)
+            {
+                throw new Exception();
+            }
+
+            clienteEncontrado.NomeCompleto = cliente.NomeCompleto;
+            clienteEncontrado.Email = cliente.Email;
+            clienteEncontrado.Telefone = cliente.Telefone;
+            clienteEncontrado.Endereco = cliente.Endereco;
+            clienteEncontrado.DataCadastro = cliente.DataCadastro;
+
+            _context.SaveChanges();
+
         }
 
         public Cliente BuscarPorEmailSenha(string email, string senha)
@@ -27,7 +41,7 @@ namespace ECommerce_API.Repositories
 
         public Cliente BuscarPorId(int id)
         {
-            throw new NotImplementedException();
+            return _context.Clientes.FirstOrDefault(c => c.IdCliente == id);
         }
 
         public void Cadastrar(Cliente cliente)
@@ -39,7 +53,17 @@ namespace ECommerce_API.Repositories
 
         public void Deletar(int id)
         {
-            throw new NotImplementedException();
+            Cliente clienteEncontrado = _context.Clientes.Find(id);
+
+            if(clienteEncontrado == null)
+            {
+                throw new Exception();
+            }
+
+            _context.Clientes.Remove(clienteEncontrado);
+
+            _context.SaveChanges();
+
         }
 
         public List<Cliente> ListarTodos()

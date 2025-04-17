@@ -66,7 +66,7 @@ namespace ECommerce_API.Controllers
             }
             catch (Exception ex)
             {
-                return NotFound("Produto nao encontrado");
+                return NotFound("Produto não encontrado");
             }
         }
 
