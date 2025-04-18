@@ -1,6 +1,57 @@
-USE ECommerce
+USE ECommerce;
+GO
 
-INSERT INTO Produto(NomeProduto, Descricao, Preco, EstoqueDisponível, CategoriaProduto, Imagem)
-VALUES
-('Mouse', 'Mouse Logitech', 99.90, 50, 'Informatica', ''),
-('Teclado', 'Teclado Dell', 209.50, 100, 'Informatca', '')
+CREATE TABLE Cliente (
+	IdCliente INT PRIMARY KEY IDENTITY,
+	NomeCompleto VARCHAR(150) NOT NULL,
+	Email VARCHAR(100) NOT NULL UNIQUE,
+	Telefone VARCHAR(20),
+	Endereco VARCHAR(255) NOT NULL,
+	Senha VARCHAR(255) NOT NULL,
+	DataCadastro DATE
+);
+GO
+
+CREATE TABLE Pedido (
+	IdPedido INT PRIMARY KEY IDENTITY,
+	IdCliente INT FOREIGN KEY REFERENCES Cliente(IdCliente) NOT NULL,
+	DataPedido DATE NOT NULL,
+	Status VARCHAR(20) NOT NULL,
+	ValorTotal DECIMAL(18,6)
+);
+GO
+
+CREATE TABLE Pagamento (
+	IdPagamento INT PRIMARY KEY IDENTITY,
+	IdPedido INT FOREIGN KEY REFERENCES Pedido(IdPedido) NOT NULL,
+	FormaPagamento VARCHAR(30) NOT NULL,
+	Status VARCHAR(20) NOT NULL,
+	Data DATETIME NOT NULL
+);
+GO
+
+CREATE TABLE Produto (
+	IdProduto INT PRIMARY KEY IDENTITY,
+	Nome VARCHAR(150) NOT NULL,
+	Descricao VARCHAR(255),
+	Preco DECIMAL(18,6) NOT NULL,
+	EstoqueDisponivel INT NOT NULL,
+	Categoria VARCHAR(100) NOT NULL,
+	Imagem VARCHAR(255)
+);
+GO
+
+
+CREATE TABLE ItemPedido(
+	IdItemPedido INT PRIMARY KEY IDENTITY,
+	IdPedido INT FOREIGN KEY REFERENCES Pedido(IdPedido) NOT NULL,
+	IdProduto INT FOREIGN KEY REFERENCES Produto(IdProduto) NOT NULL,
+	Quantidade INT NOT NULL
+	);
+	GO
+
+	DROP TABLE ItemPedido;
+	DROP TABLE Produto;
+	DROP TABLE Cliente;
+	DROP TABLE Pedido;
+	DROP TABLE Pagamento;
