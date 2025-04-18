@@ -26,12 +26,12 @@ namespace ECommerce_API.Repositories
                 throw new Exception();
             }
 
-            produtoEncontrado.NomeProduto = produto.NomeProduto;
+            produtoEncontrado.Nome = produto.Nome;
             produtoEncontrado.Descricao = produto.Descricao;
             produtoEncontrado.Preco = produto.Preco;
-            produtoEncontrado.CategoriaProduto = produto.CategoriaProduto;
+            produtoEncontrado.Categoria = produto.Categoria;
             produtoEncontrado.Imagem = produto.Imagem;
-            produtoEncontrado.EstoqueDisponível = produto.EstoqueDisponível;
+            produtoEncontrado.EstoqueDisponivel = produto.EstoqueDisponivel;
 
             _context.SaveChanges();
 
