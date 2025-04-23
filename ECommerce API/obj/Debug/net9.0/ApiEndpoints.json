@@ -27,6 +27,27 @@
   },
   {
     "ContainingType": "ECommerce_API.Controllers.ClienteController",
+    "Method": "Login",
+    "RelativePath": "api/Cliente/{email}/{senha}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "email",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "senha",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ECommerce_API.Controllers.ClienteController",
     "Method": "ListarPorId",
     "RelativePath": "api/Cliente/{id}",
     "HttpMethod": "GET",
