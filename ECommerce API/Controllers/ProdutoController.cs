@@ -1,6 +1,7 @@
 ﻿using ECommerce_API.Context;
 using ECommerce_API.Interfaces;
 using ECommerce_API.Models;
+using ECommerce_API.NovaPasta;
 using ECommerce_API.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -28,7 +29,7 @@ namespace ECommerce_API.Controllers
         }
 
         [HttpPost]
-        public IActionResult CadastrarProduto(Produto prod)
+        public IActionResult CadastrarProduto(CadastrarProdutoDto prod)
         {
             // 1 - Coloco o produto no banco de dados.
             _produtoRepository.Cadastrar(prod);

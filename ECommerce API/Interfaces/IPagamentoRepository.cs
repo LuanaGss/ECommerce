@@ -1,4 +1,5 @@
-﻿using ECommerce_API.Models;
+﻿using ECommerce_API.DTO;
+using ECommerce_API.Models;
 
 namespace ECommerce_API.Interfaces
 {
@@ -8,7 +9,7 @@ namespace ECommerce_API.Interfaces
 
         Pagamento BuscarPorId(int id);
 
-        void Cadastrar(Pagamento pagamento);
+        void Cadastrar(CadastrarPagamentoDto pagamento);
 
         void Atualizar(int id, Pagamento pagamento);
 
