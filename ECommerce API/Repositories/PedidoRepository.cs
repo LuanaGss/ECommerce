@@ -1,4 +1,5 @@
 ﻿using ECommerce_API.Context;
+using ECommerce_API.DTO;
 using ECommerce_API.Interfaces;
 using ECommerce_API.Models;
 
@@ -17,11 +18,40 @@ namespace ECommerce_API.Repositories
             throw new NotImplementedException();
         }
 
-        public void Cadastrar(Pedido pedido)
+        public void Cadastrar(CadastroPedidoDto pedidoDto)
         {
-            _context.Pedidos.Add(pedido);
 
+            // Criando um Pedido.
+            var pedido = new Pedido
+            {
+                DataPedido = pedidoDto.DataPedido,
+                IdCliente = pedidoDto.IdCliente,
+                Status = pedidoDto.Status,
+                ValorTotal = pedidoDto.ValorTotal
+            };
+
+            // Adiciona no banco de dados e salva.
+            _context.Pedidos.Add(pedido);
             _context.SaveChanges();
+
+            // Informa o i para cada produto.
+            for (int i = 0; i < pedidoDto.Produto.Count; i++)
+            {
+                // Cria uma variavel que procura no _contexto cada i.
+                var produto = _context.Produtos.Find(pedidoDto.Produto[i]);
+
+                // Cria o item pedido.
+                var itemPedido = new ItemPedido
+                {
+                    IdPedido = pedido.IdPedido,
+                    IdProduto = produto.IdProduto,
+                    Quantidade = 0
+                };
+
+                // Adiciona no banco e salva.
+                _context.ItemPedidos.Add(itemPedido);
+                _context.SaveChanges();
+            }
         }
 
         public void Deletar(int id)

@@ -5,7 +5,7 @@ namespace ECommerce_API.Interfaces
 {
     public interface IClienteRepository
     {
-        List<Cliente> ListarTodos();
+        List<ListarClienteDto> ListarTodos();
 
         Cliente BuscarPorId(int id);
 

@@ -86,9 +86,18 @@ namespace ECommerce_API.Repositories
 
         }
 
-        public List<Cliente> ListarTodos()
+        public List<ListarClienteDto> ListarTodos()
         {
-            return _context.Clientes.OrderBy(c => c.NomeCompleto).ToList();
+            return _context.Clientes
+                .Select(c => new ListarClienteDto
+                {
+                    IdCliente = c.IdCliente,
+                    NomeCompleto = c.NomeCompleto,
+                    Email = c.Email,
+                    Telefone = c.Telefone,
+                    Endereco = c.Endereco,
+                })
+                .ToList();
         }
     }
     
