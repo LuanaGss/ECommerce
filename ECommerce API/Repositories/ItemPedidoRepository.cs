@@ -33,7 +33,7 @@ namespace ECommerce_API.Repositories
 
         public ItemPedido BuscarPorId(int id)
         {
-            throw new NotImplementedException();
+            return _context.ItemPedidos.FirstOrDefault(i => i.IdItemPedido == id);
         }
 
         public void Cadastrar(ItemPedido itemPedido)
@@ -45,7 +45,16 @@ namespace ECommerce_API.Repositories
 
         public void Deletar(int id)
         {
-            throw new NotImplementedException();
+            ItemPedido itemEncontrado = _context.ItemPedidos.Find(id);
+
+            if(itemEncontrado == null)
+            {
+                throw new Exception();
+            }
+
+            _context.ItemPedidos.Remove(itemEncontrado);
+
+            _context.SaveChanges();
         }
 
         public List<ItemPedido> ListarTodos()

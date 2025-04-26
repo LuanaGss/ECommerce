@@ -2,20 +2,40 @@
 using ECommerce_API.DTO;
 using ECommerce_API.Interfaces;
 using ECommerce_API.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace ECommerce_API.Repositories
 {
     public class PedidoRepository : IPedidoRepository
     {
         private readonly EcommerceContext _context;
+
+        public PedidoRepository(EcommerceContext context)
+        {
+            _context = context;
+        }
         public void Atualizar(int id, Pedido pedido)
         {
-            throw new NotImplementedException();
+            Pedido pedidoEncontrado = _context.Pedidos.Find(id);
+
+            if(pedidoEncontrado == null)
+            {
+                throw new Exception();
+            }
+
+            pedidoEncontrado.IdPedido = pedido.IdPedido;
+            pedidoEncontrado.IdCliente = pedido.IdCliente;
+            pedidoEncontrado.DataPedido = pedido.DataPedido;
+            pedidoEncontrado.Status = pedido.Status;
+            pedidoEncontrado.ValorTotal = pedido.ValorTotal;
+
+            _context.SaveChanges();
+
         }
 
         public Pedido BuscarPorId(int id)
         {
-            throw new NotImplementedException();
+            return _context.Pedidos.FirstOrDefault(p => p.IdPedido == id);
         }
 
         public void Cadastrar(CadastroPedidoDto pedidoDto)
@@ -56,12 +76,24 @@ namespace ECommerce_API.Repositories
 
         public void Deletar(int id)
         {
-            throw new NotImplementedException();
+            Pedido pedidoEncontrado = _context.Pedidos.Find(id);
+
+            if(pedidoEncontrado == null)
+            {
+                throw new Exception();
+            }
+
+            _context.Pedidos.Remove(pedidoEncontrado);
+
+            _context.SaveChanges();
         }
 
         public List<Pedido> ListarTodos()
         {
-            return _context.Pedidos.ToList();
+            return _context.Pedidos
+                .Include(p => p.ItemPedidos)
+                .ThenInclude(p => p.IdProdutoNavigation)
+                .ToList();
         }
     }
 }
