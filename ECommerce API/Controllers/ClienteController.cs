@@ -3,6 +3,7 @@ using ECommerce_API.DTO;
 using ECommerce_API.Interfaces;
 using ECommerce_API.Models;
 using ECommerce_API.Repositories;
+using ECommerce_API.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,8 +13,10 @@ namespace ECommerce_API.Controllers
     [ApiController]
     public class ClienteController : ControllerBase
     {
-        private readonly EcommerceContext _context;
         private IClienteRepository _clienteRepository;
+
+        // Instanciar o PassWordServices
+        private PasswordService passwordService = new PasswordService();
 
         public ClienteController(IClienteRepository clienteRepository)
         {

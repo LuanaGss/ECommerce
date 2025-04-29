@@ -12,11 +12,6 @@
 	  <Compile Remove="Interfaces\IItemProduto.cs" />
 	  <Compile Remove="Interfaces\IItemProdutoRepository1.cs" />
 	  <Compile Remove="Interfaces\Interface.cs" />
-	  <Compile Remove="NovaPasta\DTO.cs" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <None Remove="NovaPasta\DTO" />
 	</ItemGroup>
 
 	<ItemGroup>
