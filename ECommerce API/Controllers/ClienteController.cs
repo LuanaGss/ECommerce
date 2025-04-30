@@ -4,6 +4,7 @@ using ECommerce_API.Interfaces;
 using ECommerce_API.Models;
 using ECommerce_API.Repositories;
 using ECommerce_API.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -24,6 +25,7 @@ namespace ECommerce_API.Controllers
         }
 
         [HttpGet]
+        [Authorize] // So consegue fazer a consulta com o token 
 
         public IActionResult ListarCliente()
         {
@@ -87,18 +89,22 @@ namespace ECommerce_API.Controllers
 
         }
 
-        [HttpGet("{email}/{senha}")]
+        [HttpPost("login")]
 
-        public IActionResult Login(string email, string senha)
+        public IActionResult Login(LoginDto login)
         {
-            var cliente = _clienteRepository.BuscarPorEmailSenha(email, senha);
+            var cliente = _clienteRepository.BuscarPorEmailSenha(login.Email, login.Senha);
 
             if(cliente == null)
             {
-                return NotFound();
+                return Unauthorized("Email ou Senha invalidos!");
             }
 
-            return Ok(cliente);
+            var tokenService = new TokenService();
+
+            var token = tokenService.GenerateToken(cliente.Email);
+
+            return Ok(token);
         }
 
         [HttpGet("/buscar/{nome}")]

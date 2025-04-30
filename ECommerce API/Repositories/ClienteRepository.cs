@@ -45,9 +45,21 @@ namespace ECommerce_API.Repositories
 
         public Cliente? BuscarPorEmailSenha(string email, string senha)
         {
-            var ClienteEncontrado = _context.Clientes.FirstOrDefault(c => c.Email == email && c.Senha == senha);
+            // Procuro Cliente pelo email 
+            var ClienteEncontrado = _context.Clientes.FirstOrDefault(c => c.Email == email);
 
-            return ClienteEncontrado;
+            // Caso encontre, retorno nulo
+            if(ClienteEncontrado == null)
+                return null;
+
+            var passwordService = new PasswordService();
+
+            // Verificar se a senha do Usuario gera o mesmo Hash
+            var resultado = passwordService.VerificarSenha
+                (ClienteEncontrado, senha);
+
+            if(resultado == true) return ClienteEncontrado;
+                return null;
         }
 
         public Cliente BuscarPorId(int id)
